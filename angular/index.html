@@ -1,8 +1,8 @@
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" ng-app="ToDoApp">
   <head>
     <meta charset="utf-8">
-    <title>To Do List</title>
+    <title>To Do List - Angular</title>
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -13,7 +13,7 @@
   <body>
     <div class="container" style="padding-top: 20px;" ng-controller="ToDoCtrl as todo">
       <div class="form-group input-group">
-        <input type="text" class="form-control" placeholder="Enter task" ng-model="todo.task">
+        <input type="text" class="form-control" placeholder="Enter task" ng-model="todo.task" ng-keyup="$event.keyCode == 13 && todo.addTask()">
         <span class="input-group-btn">
           <button type="submit" class="btn btn-default" ng-click="todo.addTask()">Enter</button>
         </span>
