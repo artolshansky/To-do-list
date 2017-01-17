@@ -22,12 +22,23 @@
   }); 
 
   var ToDoInput = React.createClass({
+    submit: function() {
+      if(this.input.value == ""){
+      } else {
+        tasks.push({
+          name: this.input.value,
+          done: false
+        });
+        this.input.value = "";
+      }
+    },
+
     render: function(){
       return (
         <div className="form-group input-group">
-          <input type="text" className="form-control" id="task" placeholder="Enter task"></input>
+          <input type="text" className="form-control" id="task" placeholder="Enter task" ref={(input) => this.input = input} ></input>
           <span className="input-group-btn">
-            <button type="submit" className="btn btn-default">Enter</button>
+            <button type="submit" className="btn btn-default" onClick={this.submit.bind(this)} >Enter</button>
           </span>
         </div>
       );
