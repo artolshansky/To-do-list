@@ -1,58 +1,50 @@
   var Task = function(props){
     return (
-    <tbody>
-      <tr> 
-        <td>{props.name}</td>
-        <td><input type="checkbox" className="done"></input></td>
-      </tr>
-    </tbody>
+      <tbody>
+        <tr> 
+          <td >{props.name}</td>
+          <td><input type="checkbox" className="done"></input>{props.done}</td>
+        </tr>
+      </tbody>
     );
   }
 
-  var ToDoList = React.createClass({
-    render: function(){
-      return (
-        <table className="table table-hover">
-          {this.props.tasks.map(function(task) {
-            return <Task name={task.name} done={task.done} />;
-          })}
-        </table>
-      );
-    }
-  }); 
+  var ToDoApp = React.createClass({
+    getInitialState() {
+      return {
+        tasksCount: tasks.length
+      };
+    },
 
-  var ToDoInput = React.createClass({
-    submit: function() {
+    submit() {
       if(this.input.value == ""){
       } else {
         tasks.push({
           name: this.input.value,
           done: false
         });
+        this.setState({ fieldsCount: this.state.fieldsCount + 1 });
         this.input.value = "";
       }
     },
 
-    render: function(){
+    render() {
       return (
-        <div className="form-group input-group">
-          <input type="text" className="form-control" id="task" placeholder="Enter task" ref={(input) => this.input = input} ></input>
-          <span className="input-group-btn">
-            <button type="submit" className="btn btn-default" onClick={this.submit.bind(this)} >Enter</button>
-          </span>
+        <div className="container" id="container" style={{paddingTop: 20}} >
+          <div className="form-group input-group">
+            <input type="text" className="form-control" id="task" placeholder="Enter task" ref={(input) => this.input = input}  />
+            <span className="input-group-btn">
+              <button type="submit" className="btn btn-default" onClick={this.submit} >Enter</button>
+            </span>
+          </div>
+          <table className="table table-hover">
+            {tasks.map(function(task) {
+              return <Task name={task.name} done={task.done} />;
+            })}
+          </table>
         </div>
-      );
-    }
-  }); 
-
-  var ToDoApp = React.createClass({
-    render: function(){
-      return (
-        <div>
-          <ToDoInput />
-          <ToDoList tasks={tasks} />
-        </div>
-        );
+      )
+      console.log(tasks);
     }
   });
 
@@ -62,4 +54,4 @@
     {name: '3 Third task', done: false},
   ];
   
-  ReactDOM.render(<ToDoApp />, document.getElementById('container'));
+  ReactDOM.render(<ToDoApp />, document.body);
