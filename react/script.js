@@ -28,11 +28,17 @@
       }
     },
 
+    addOnPressEnter(e) {
+      if(e.key == 'Enter'){
+        this.submit();
+      }
+    },
+
     render() {
       return (
         <div className="container" id="container" style={{paddingTop: 20}} >
           <div className="form-group input-group">
-            <input type="text" className="form-control" id="task" placeholder="Enter task" ref={(input) => this.input = input}  />
+            <input type="text" className="form-control" id="task" placeholder="Enter task" onKeyPress={this.addOnPressEnter} ref={(input) => this.input = input}  />
             <span className="input-group-btn">
               <button type="submit" className="btn btn-default" onClick={this.submit} >Enter</button>
             </span>
