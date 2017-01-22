@@ -1,13 +1,29 @@
-  var Task = function(props){
-    return (
-      <tbody>
-        <tr> 
-          <td >{props.name}</td>
-          <td><input type="checkbox" className="done"></input>{props.done}</td>
-        </tr>
-      </tbody>
-    );
-  }
+  var Task = React.createClass({
+    getInitialState() {      
+      return {
+        done: this.props.done,
+        style: this.props.done ? {textDecoration: 'line-through'} : {}
+      };
+    },
+
+    check() { 
+      this.setState({
+        done: this.state.done ? false : true,
+        style: this.state.done ? {} : {textDecoration: 'line-through'}
+      });
+    }, 
+
+    render() {
+      return (
+        <tbody>
+          <tr> 
+            <td style={this.state.style}>{this.props.name}</td>
+            <td><input type="checkbox" className="done" onClick={this.check} ref={(input) => this.input = input} checked={this.state.done} /></td>
+          </tr>
+        </tbody>
+      );
+    }
+  });
 
   var ToDoApp = React.createClass({
     getInitialState() {
@@ -23,7 +39,7 @@
           name: this.input.value,
           done: false
         });
-        this.setState({ fieldsCount: this.state.fieldsCount + 1 });
+        this.setState({ tasksCount: this.state.tasksCount + 1 });
         this.input.value = "";
       }
     },
@@ -50,12 +66,11 @@
           </table>
         </div>
       )
-      console.log(tasks);
     }
   });
 
   var tasks = [
-    {name: '1 First task', done: false},
+    {name: '1 First task', done: true},
     {name: '2 Second task', done: false},
     {name: '3 Third task', done: false},
   ];
